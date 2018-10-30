@@ -11,16 +11,16 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
   vector<cv::Mat> colorImgs, depthImgs;
-  vector<Eigen:::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>> poses;
+  vector<Eigen::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>> poses;
 
-  ifstream fin("../ch5/pose.txt")
+  ifstream fin("../ch5/pose.txt");
   if (!fin) {
     cerr << "cannot find ../ch5/pose.txt" << endl;
     return 1;
   }
 
   for (int i = 0; i < 5; ++i) {
-    boost::format fmt("./%s/%d./%s");
+    boost::format fmt("../ch5/%s/%d.%s");
     colorImgs.push_back(cv::imread((fmt%"color"%(i+1)%"png").str()));
     depthImgs.push_back(cv::imread((fmt%"depth"%(i+1)%"pgm").str(), -1));
     double data[7] = {0};
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
         point[0] = (u - cx) * point[2] / fx;
         point[1] = (v - cy) * point[2] / fy;
         Eigen::Vector3d pointWorld = T * point;
-        pointT p;
+        PointT p;
         p.x = pointWorld[0];
         p.y = pointWorld[1];
         p.z = pointWorld[2];
