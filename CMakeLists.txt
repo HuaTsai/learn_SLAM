@@ -7,6 +7,7 @@ find_package(Sophus REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Ceres REQUIRED)
 find_package(PCL REQUIRED COMPONENT common io)
+find_package(g2o REQUIRED)
 
 include_directories(
   ${EIGEN3_INCLUDE_DIRS}
@@ -14,6 +15,16 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
   ${CERES_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
+)
+
+set(
+ LIBS
+  ${Sophus_LIBRARIES}
+  ${OpenCV_LIBS}
+  ${CERES_LIBRARIES}
+  ${PCL_LIBRARIES}
+  g2o_core
+  g2o_stuff
 )
 
 add_definitions(${PCL_DEFINITIONS})
@@ -25,5 +36,6 @@ foreach(FILE_PATH ${ALL_SRCS})
   get_filename_component(FILENAME ${FILE_PATH} NAME_WE)
   set(EXEC "${DIRECTORY_NAME}${FILENAME}")
   add_executable(${EXEC} ${FILE_PATH})
-  target_link_libraries(${EXEC} ${Sophus_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES} ${PCL_LIBRARIES})
+  target_link_libraries(${EXEC} ${LIBS})
 endforeach(FILE_PATH)
+
