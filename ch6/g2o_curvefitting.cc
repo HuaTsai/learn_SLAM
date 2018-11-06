@@ -49,7 +49,7 @@ class CurveFittingEdge
   double _x;
 };
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
   double a = 1.f, b = 2.f, c = 1.f;
   int N = 100;
   double w_sigma = 1.f;
